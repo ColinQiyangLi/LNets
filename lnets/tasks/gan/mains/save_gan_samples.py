@@ -9,7 +9,7 @@ def collect_images(sampler, num_imgs, im_size, num_channels, sample_size):
     sampled_images = np.zeros((num_imgs, im_size, im_size, num_channels))
 
     count = 0
-    while count < num_imgs:
+    while count < num_imgs - sample_size:
         curr_imgs = sampler(cfg.distrib1.sample_size).detach().cpu().numpy().transpose((0, 2, 3, 1))
         assert curr_imgs.shape[0] == sample_size, "Doens't match sample size, count: {}".format(count)
         sampled_images[count:count + sample_size] = curr_imgs
