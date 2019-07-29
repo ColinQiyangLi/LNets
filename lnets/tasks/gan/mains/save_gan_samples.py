@@ -11,7 +11,6 @@ def collect_images(sampler, num_imgs, im_size, num_channels, sample_size):
     count = 0
     while count < num_imgs:
         curr_imgs = sampler(cfg.distrib1.sample_size).detach().cpu().numpy().transpose((0, 2, 3, 1))
-        import pdb; pdb.set_trace()
         sampled_images[count:count + sample_size] = curr_imgs
 
         count += sample_size
