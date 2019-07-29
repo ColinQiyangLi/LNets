@@ -31,7 +31,7 @@ def save_images(imgs, path):
     imgs = transform_imgs(imgs)
 
     for i in range(imgs.shape[0]):
-        if i % 1000 == 0:
+        if i % 10000 == 0:
             print("Saved {} images. ".format(i))
         curr_im = imgs[i]
         curr_path = os.path.join(path, "im_{}.png".format(i))
