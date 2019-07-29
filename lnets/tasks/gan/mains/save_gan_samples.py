@@ -27,7 +27,7 @@ def save_images(imgs):
         import pdb; pdb.set_trace()
 
 
-if __name__ == "__config__":
+if __name__ == "__main__":
     # Parse the config.
     print("Entered. ")
     import pdb; pdb.set_trace()
