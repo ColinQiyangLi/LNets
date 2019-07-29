@@ -40,8 +40,8 @@ def save_images(imgs, path):
 
 def transform_imgs(imgs):
     imgs = (imgs + 1) / 2
-    assert imgs.min() >= 0.0
-    assert imgs.max() < 1.0
+    assert imgs.min() >= 0.0, "img min is: {}".format(imgs.min())
+    assert imgs.max() <= 1.0, "img max is: {}".format(imgs.max())
 
     imgs = (255*imgs).astype(np.uint8)
 
