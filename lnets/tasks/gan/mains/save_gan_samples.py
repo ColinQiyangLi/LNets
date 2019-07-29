@@ -1,4 +1,7 @@
+import os
+
 import numpy as np
+from imageio import imsave
 
 from lnets.utils.config import process_config
 from lnets.tasks.dualnets.distrib.gan_sampler import GANSampler
@@ -23,9 +26,14 @@ def collect_images(sampler, num_imgs, im_size, num_channels, sample_size):
     return sampled_images
 
 
-def save_images(imgs):
+def save_images(imgs, path):
+    imgs = (imgs + 1) / 2
     for i in range(imgs.shape[0]):
-        import pdb; pdb.set_trace()
+        if i % 1000 == 0:
+            print("Saved {} images. ".format(i))
+        curr_im = imgs[i]
+        curr_path = os.path.join(path, "im_{}.png".format(i))
+        imsave(curr_path, curr_im)
 
 
 if __name__ == "__main__":
@@ -41,5 +49,7 @@ if __name__ == "__main__":
     # Collect images.
     images = collect_images(gan_sampler, cfg.num_imgs, cfg.im_size, cfg.num_channels, cfg.distrib1.sample_size)
 
-    # Save the images.
-    save_images(images)
+    # Save the generated images.
+    generated_path = os.path.join(cfg.base_save_path, "generated")
+    save_images(images, generated_path)
+

@@ -10,5 +10,6 @@
   },
   "num_imgs": 50000,
   "im_size": 28,
-  "num_channels": 1
+  "num_channels": 1,
+  "base_save_path": "./out/gan/LGANS/BCOP/GAN_training_LWGAN_MNIST_mnist_LWGAN_2019_07_29_14_58_28_507312/saved_samples"
 }
