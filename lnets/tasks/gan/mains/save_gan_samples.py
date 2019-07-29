@@ -56,6 +56,6 @@ if __name__ == "__main__":
 
     # Save the generated images.
     generated_path = os.path.join(cfg.base_save_path, "generated")
-    os.makedirs(generated_path)
+    os.makedirs(generated_path, exist_ok=True)
     save_images(images, generated_path)
 
