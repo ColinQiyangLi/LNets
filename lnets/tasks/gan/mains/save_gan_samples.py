@@ -5,6 +5,7 @@ from imageio import imsave
 
 from lnets.utils.config import process_config
 from lnets.tasks.dualnets.distrib.gan_sampler import GANSampler
+from lnets.tasks.gan.data.data_loader import dataloader
 
 
 def collect_images(sampler, num_imgs, im_size, num_channels, sample_size):
@@ -27,11 +28,7 @@ def collect_images(sampler, num_imgs, im_size, num_channels, sample_size):
 
 
 def save_images(imgs, path):
-    imgs = (imgs + 1) / 2
-    assert imgs.min() >= 0.0
-    assert imgs.max() < 1.0
-
-    imgs = (255*imgs).astype(np.uint8)
+    imgs = transform_imgs(imgs)
 
     for i in range(imgs.shape[0]):
         if i % 1000 == 0:
@@ -39,6 +36,16 @@ def save_images(imgs, path):
         curr_im = imgs[i]
         curr_path = os.path.join(path, "im_{}.png".format(i))
         imsave(curr_path, curr_im)
+
+
+def transform_imgs(imgs):
+    imgs = (imgs + 1) / 2
+    assert imgs.min() >= 0.0
+    assert imgs.max() < 1.0
+
+    imgs = (255*imgs).astype(np.uint8)
+
+    return imgs
 
 
 if __name__ == "__main__":
@@ -52,10 +59,19 @@ if __name__ == "__main__":
     gan_sampler = GANSampler(cfg.distrib1)
 
     # Collect images.
-    images = collect_images(gan_sampler, cfg.num_imgs, cfg.im_size, cfg.num_channels, cfg.distrib1.sample_size)
+    generated_images = collect_images(gan_sampler, cfg.num_imgs, cfg.im_size, cfg.num_channels, cfg.distrib1.sample_size)
 
     # Save the generated images.
     generated_path = os.path.join(cfg.base_save_path, "generated")
     os.makedirs(generated_path, exist_ok=True)
-    save_images(images, generated_path)
+    save_images(generated_images, generated_path)
 
+    # Save the real samples.
+    dataset_path = os.path.join(cfg.base_save_path, "dataset")
+    os.makedirs(dataset_path, exist_ok=True)
+    loader = dataloader(cfg.dataset, cfg.im_size, cfg.dataset_size, dataset_path)
+    real_images = loader.__iter__().__next__()[0].detach().cpu().numpy().transpose((0, 2, 3, 1))
+
+    real_path = os.path.join(cfg.base_save_path, "real")
+    os.makedirs(real_path, exist_ok=True)
+    save_images(real_images, generated_path)
