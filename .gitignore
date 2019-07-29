@@ -126,4 +126,4 @@ dmypy.json
 # Misc. 
 data/
 out/
-
+.idea/
