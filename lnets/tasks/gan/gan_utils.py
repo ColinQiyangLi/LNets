@@ -5,6 +5,7 @@ import scipy.misc
 import imageio
 import matplotlib.pyplot as plt
 from torchvision import datasets
+from imageio import imsave
 
 
 def load_mnist(dataset):
@@ -77,12 +78,12 @@ def print_network(net):
 
 
 def save_images(images, size, image_path):
-    return imsave(images, size, image_path)
+    return imsave_unmerged(images, size, image_path)
 
 
-def imsave(images, size, path):
+def imsave_unmerged(images, size, path):
     image = np.squeeze(merge(images, size))
-    return scipy.misc.imsave(path, image)
+    return imsave(path, image)
 
 
 def merge(images, size):

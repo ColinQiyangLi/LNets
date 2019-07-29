@@ -214,6 +214,10 @@ class LWGAN(object):
                     print("Epoch: [%2d] [%4d/%4d] D_loss: %.8f, G_loss: %.8f" %
                           ((epoch + 1), (iter + 1), self.data_loader.dataset.__len__() // self.batch_size,
                            D_loss.item(), G_loss.item()))
+                
+                if ((iter + 1) % 800) == 0:
+                    print("Saving model. ")
+                    self.save()
 
                 if ((iter + 1) % 10000) == 0:
                     self.save()
