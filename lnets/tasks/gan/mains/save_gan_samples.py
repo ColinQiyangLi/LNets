@@ -17,7 +17,7 @@ def collect_images(sampler, num_imgs, im_size, num_channels, sample_size):
         count += sample_size
 
     # Add the last bit.
-    last_samples = gan_sampler(cfg.distrib1.sample_size)
+    last_samples = gan_sampler(cfg.distrib1.sample_size).detach().cpu().numpy().transpose((0, 2, 3, 1))
     sampled_images[count:] = last_samples[num_imgs - count]
 
     return sampled_images
