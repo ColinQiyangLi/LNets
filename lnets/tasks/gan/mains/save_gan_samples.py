@@ -29,8 +29,6 @@ def save_images(imgs):
 
 if __name__ == "__main__":
     # Parse the config.
-    print("Entered. ")
-    import pdb; pdb.set_trace()
     cfg = process_config()
 
     # Quick checks.

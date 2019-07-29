@@ -46,7 +46,7 @@ class GANSampler(BaseDistrib):
         if self.gan_config.gan_type == 'WGAN':
             gan = WGAN(self.gan_config)
         elif self.gan_config.gan_type == "LWGAN":
-            GAN = LWGAN(self.gan_config)
+            gan = LWGAN(self.gan_config)
         else:
             raise Exception("[!] There is no option for " + self.gan_config.gan_type)
 
