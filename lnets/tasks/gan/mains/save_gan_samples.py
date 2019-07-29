@@ -28,6 +28,11 @@ def collect_images(sampler, num_imgs, im_size, num_channels, sample_size):
 
 def save_images(imgs, path):
     imgs = (imgs + 1) / 2
+    assert imgs.min() >= 0.0
+    assert imgs.max() < 1.0
+
+    imgs = (255*imgs).astype(np.uint8)
+
     for i in range(imgs.shape[0]):
         if i % 1000 == 0:
             print("Saved {} images. ".format(i))
