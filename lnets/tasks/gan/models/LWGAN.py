@@ -17,8 +17,12 @@ from lnets.models.activations import *
 from lnets.models.layers import *
 from munch import Munch
 
+from lconvnet.layers.orthogonal.cleanup import LipschitzConv2d, BCOP, RKO
+
 CUDA = False
 
+def bcop(in_channels, out_channels, kernel_size, stride, padding, conv_module, zero_padding):
+    return LipschitzConv2d(in_channels, out_channels, kernel_size, stride, padding, conv_module=conv_module, zero_padding=zero_padding)
 
 class Generator(nn.Module):
     # Network Architecture is exactly same as in infoGAN (https://arxiv.org/abs/1606.03657)
@@ -57,7 +61,7 @@ class Generator(nn.Module):
 class Discriminator(nn.Module):
     # Network Architecture is exactly same as in infoGAN (https://arxiv.org/abs/1606.03657)
     # Architecture : (64)4c2s-(128)4c2s_BL-FC1024_BL-FC1_S
-    def __init__(self, input_dim=1, output_dim=1, input_size=32, cuda=False):
+    def __init__(self, input_dim=1, output_dim=1, input_size=32, cuda=False, conv_type="default"):
         super(Discriminator, self).__init__()
         self.input_dim = input_dim
         self.output_dim = output_dim
@@ -70,15 +74,17 @@ class Discriminator(nn.Module):
                                                             safe_scaling=True
                                                             ))))
 
+        zero_padding = True
+        module = BCOP if conv_type == "BCOP" else RKO
         self.conv = nn.Sequential(
             # Conv.
-            BjorckConv2d(self.input_dim, 64, 4, 2, 1, config=config),
+            (bcop(self.input_dim, 64, 4, 2, 1, module, zero_padding) if conv_type != "default" else BjorckConv2d(self.input_dim, 64, 4, 2, 1, config=config)),
 
             # Activ.
             MaxMin(num_units=32, axis=1),
 
             # Conv
-            BjorckConv2d(64, 128, 4, 2, 1, config=config),
+            (bcop(64, 128, 4, 2, 1, module, zero_padding) if conv_type != "default" else BjorckConv2d(64, 128, 4, 2, 1, config=config)),
 
             # Activ.
             MaxMin(num_units=64, axis=1)
@@ -129,7 +135,7 @@ class LWGAN(object):
 
         # Networks initialization.
         self.G = Generator(input_dim=self.z_dim, output_dim=data.shape[1], input_size=self.input_size)
-        self.D = Discriminator(input_dim=data.shape[1], output_dim=1, input_size=self.input_size, cuda=self.gpu_mode)
+        self.D = Discriminator(input_dim=data.shape[1], output_dim=1, input_size=self.input_size, cuda=self.gpu_mode, conv_type=args.conv_type)
         self.G_optimizer = optim.Adam(self.G.parameters(), lr=args.lrG, betas=(args.beta1, args.beta2))
         self.D_optimizer = optim.Adam(self.D.parameters(), lr=args.lrD, betas=(args.beta1, args.beta2))
 

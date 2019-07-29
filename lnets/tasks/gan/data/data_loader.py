@@ -5,7 +5,11 @@ from torchvision import datasets, transforms
 
 
 def dataloader(dataset, input_size, batch_size, data_root="data", split='train'):
-    transform = transforms.Compose([transforms.Resize((input_size, input_size)), transforms.ToTensor(),
+    if dataset in ["mnist", "fashion-mnist"]:
+        transform = transforms.Compose([transforms.Resize((input_size, input_size)), transforms.ToTensor(),
+                                    transforms.Normalize(mean=(0.5,), std=(0.5,))])
+    else:
+        transform = transforms.Compose([transforms.Resize((input_size, input_size)), transforms.ToTensor(),
                                     transforms.Normalize(mean=(0.5, 0.5, 0.5), std=(0.5, 0.5, 0.5))])
     if dataset == 'mnist':
         data_path = os.path.join(data_root, "mnist")

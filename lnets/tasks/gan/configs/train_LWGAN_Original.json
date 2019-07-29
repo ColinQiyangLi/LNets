@@ -1,7 +1,7 @@
 {
   "seed": 0,
   "task": "GAN_training",
-  "output_root": "out/gan/LGANS",
+  "output_root": "out/gan/LGANS/Original",
   "exp_name": "LWGAN",
 
 
@@ -14,7 +14,7 @@
   "epoch": 256,
   "batch_size": 64,
   "input_size": 32,
-
+  "conv_type": "default",
 
   "lrG": 0.0002,
   "lrD": 0.002,
