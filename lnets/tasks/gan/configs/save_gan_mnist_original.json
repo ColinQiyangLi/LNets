@@ -1,0 +1,17 @@
+{
+  "distrib1": {
+    "name": "GANSampler",
+    "filepath": "lnets/tasks/dualnets/distrib/gan_sampler.py",
+    "gan_config_json_path": "./out/gan/LGANS/from_colin_2019_07_29/remote_1/remote/Original/GAN_training_LWGAN_MNIST_mnist_LWGAN_2019_07_29_12_46_25_252959/hparams/hparams.json",
+    "sample_size": 64,
+    "test_sample_size": 64,
+    "generate_type": "generated",
+    "dim": 784
+  },
+  "num_imgs": 50000,
+  "im_size": 28,
+  "num_channels": 1,
+  "base_save_path": "./out/gan/LGANS/from_colin_2019_07_29/remote_1/remote/Original/GAN_training_LWGAN_MNIST_mnist_LWGAN_2019_07_29_12_46_25_252959/saved_samples",
+  "dataset": "mnist",
+  "dataset_size": 50000
+}
