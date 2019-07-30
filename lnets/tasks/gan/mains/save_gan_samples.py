@@ -55,17 +55,9 @@ if __name__ == "__main__":
     # Quick checks.
     assert cfg.distrib1.generate_type == "generated"
 
-    # Save the real samples.
-    dataset_path = os.path.join(cfg.base_save_path, "dataset")
-    os.makedirs(dataset_path, exist_ok=True)
-    loader = dataloader(cfg.dataset, cfg.im_size, cfg.dataset_size, dataset_path)
-    real_images = loader.__iter__().__next__()[0].detach().cpu().numpy().transpose((0, 2, 3, 1))
+    print("Working on generated samples. ")
 
-    real_path = os.path.join(cfg.base_save_path, "real")
-    os.makedirs(real_path, exist_ok=True)
-    save_images(real_images, real_path)
-
-    # Load the gan loader. 
+    # Load the gan loader.
     gan_sampler = GANSampler(cfg.distrib1)
 
     # Collect images.
@@ -75,3 +67,15 @@ if __name__ == "__main__":
     generated_path = os.path.join(cfg.base_save_path, "generated")
     os.makedirs(generated_path, exist_ok=True)
     save_images(generated_images, generated_path)
+
+    print("Working on real samples. ")
+
+    # Save the real samples.
+    dataset_path = os.path.join(cfg.base_save_path, "dataset")
+    os.makedirs(dataset_path, exist_ok=True)
+    loader = dataloader(cfg.dataset, cfg.im_size, cfg.dataset_size, dataset_path)
+    real_images = loader.__iter__().__next__()[0].detach().cpu().numpy().transpose((0, 2, 3, 1))
+
+    real_path = os.path.join(cfg.base_save_path, "real")
+    os.makedirs(real_path, exist_ok=True)
+    save_images(real_images, real_path)
