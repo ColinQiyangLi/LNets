@@ -12,6 +12,6 @@
   "im_size": 32,
   "num_channels": 3,
   "base_save_path": "./out/gan/LGANS/RKO/GAN_training_LWGAN_cifar10_LWGAN_2019_07_28_22_13_11_289824/saved_samples",
-  "dataset": "mnist",
+  "dataset": "cifar10",
   "dataset_size": 50000
 }
