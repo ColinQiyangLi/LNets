@@ -2,7 +2,7 @@
   "distrib1": {
     "name": "GANSampler",
     "filepath": "lnets/tasks/dualnets/distrib/gan_sampler.py",
-    "gan_config_json_path": "./out/gan/LGANS/RKO/GAN_training_LWGAN_cifar10_LWGAN_2019_07_28_22_13_11_289824/hparams/hparams.json",
+    "gan_config_json_path": "./out/gan/LGANS/RKO/GAN_training_LWGAN_MNIST_mnist_LWGAN_2019_07_29_12_44_38_052832/hparams/hparams.json",
     "sample_size": 64,
     "test_sample_size": 64,
     "generate_type": "generated",
@@ -11,7 +11,7 @@
   "num_imgs": 50000,
   "im_size": 28,
   "num_channels": 1,
-  "base_save_path": "./out/gan/LGANS/RKO/GAN_training_LWGAN_cifar10_LWGAN_2019_07_28_22_13_11_289824/saved_samples",
+  "base_save_path": "./out/gan/LGANS/RKO/GAN_training_LWGAN_MNIST_mnist_LWGAN_2019_07_29_12_44_38_052832/saved_samples",
   "dataset": "mnist",
   "dataset_size": 50000
 }
