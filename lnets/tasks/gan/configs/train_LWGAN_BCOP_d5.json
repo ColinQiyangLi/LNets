@@ -1,0 +1,26 @@
+{
+  "seed": 0,
+  "task": "GAN_training",
+  "output_root": "out/gan/LGANS/BCOP/d5",
+  "exp_name": "LWGAN",
+
+
+  "gan_type": "LWGAN",
+
+  "data_root": "data/LNets/gan",
+
+  "dataset": "cifar10",
+  "split": "",
+  "epoch": 256,
+  "batch_size": 64,
+  "input_size": 32,
+  "conv_type": "BCOP",
+
+  "lrG": 0.0002,
+  "lrD": 0.0004,
+  "beta1": 0.5,
+  "beta2": 0.999,
+
+  "gpu_mode": true,
+  "benchmark_mode": true
+}
