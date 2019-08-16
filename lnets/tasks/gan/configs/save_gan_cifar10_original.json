@@ -1,0 +1,17 @@
+{
+  "distrib1": {
+    "name": "GANSampler",
+    "filepath": "lnets/tasks/dualnets/distrib/gan_sampler.py",
+    "gan_config_json_path": "./out/gan/LGANS/Original/GAN_training_LWGAN_cifar10_LWGAN_2019_07_28_22_12_19_997491/hparams/hparams.json",
+    "sample_size": 64,
+    "test_sample_size": 64,
+    "generate_type": "generated",
+    "dim": 3072
+  },
+  "num_imgs": 50000,
+  "im_size": 32,
+  "num_channels": 3,
+  "base_save_path": "./out/gan/LGANS/Original/GAN_training_LWGAN_cifar10_LWGAN_2019_07_28_22_12_19_997491/saved_samples",
+  "dataset": "cifar10",
+  "dataset_size": 50000
+}

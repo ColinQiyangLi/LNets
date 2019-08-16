@@ -5,6 +5,7 @@ pp = pprint.PrettyPrinter()
 
 from lnets.tasks.dualnets.distrib.base_distrib import BaseDistrib
 from lnets.tasks.gan.models.WGAN import WGAN
+from lnets.tasks.gan.models.LWGAN import LWGAN
 
 
 class GANSampler(BaseDistrib):
@@ -44,6 +45,8 @@ class GANSampler(BaseDistrib):
     def instantiate_gan(self):
         if self.gan_config.gan_type == 'WGAN':
             gan = WGAN(self.gan_config)
+        elif self.gan_config.gan_type == "LWGAN":
+            gan = LWGAN(self.gan_config)
         else:
             raise Exception("[!] There is no option for " + self.gan_config.gan_type)
 
